@@ -16,6 +16,7 @@ export default function Search() {
         value={query}
         onChange={(e) => SetQuery(e.target.value)}
       />
+      <button>HI</button>
     </div>
   );
 }
