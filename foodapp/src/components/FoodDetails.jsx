@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import styles from "./foodDetails.module.css";
+import ItemList from "./ItemList";
 export default function FoodDetails({ foodId }) {
   const [food, setFood] = useState({});
   const [loading, setLoading] = useState(true);
   const URL = `https://api.spoonacular.com/recipes/${foodId}/information`;
-  const API_KEY = "3a6c555b8cf24d7e8af4213183e1f480";
+  const API_KEY = "e1e18c92af1d414fa61419b342b1e3a3";
 
   useEffect(() => {
     async function fetchFood() {
@@ -40,21 +41,13 @@ export default function FoodDetails({ foodId }) {
         <div>
           💲
           <span>
-            <strong>{food.pricePerServing / 100} Per Serving</strong>
+            <strong>
+              {(food.pricePerServing / 100).toFixed(2)} Per Serving
+            </strong>
           </span>
         </div>
         <h2>Ingredients</h2>
-        {food.extendedIngredients.map((item) => (
-          <div>
-            <h3>{item.name}</h3>
-            <img
-              src={
-                `https://spoonacular.com/cdn/ingredients_100x100/` + item.image
-              }
-              alt=""
-            />
-          </div>
-        ))}
+        <ItemList food={food} loading={loading} />
         <h2>Instructions</h2>
         <div className={styles.recipeInstructions}>
           <ol>
